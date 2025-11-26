@@ -88,6 +88,13 @@ jobs:
     - name: Fix dependencies
       run: flutter pub upgrade syncfusion_flutter_pdfviewer || true
     
+    - name: Fix pubspec.yaml fonts
+      run: |
+        # إزالة تعريف الخطوط المحلية من pubspec.yaml
+        sed -i '/fonts:/,/Poppins-Regular.ttf/d' pubspec.yaml || true
+        # إزالة تعريف assets المفقودة
+        sed -i '/assets:/,/assets\/animations\//d' pubspec.yaml || true
+    
     - name: Create Missing Asset Directories
       run: |
         mkdir -p assets/images/backgrounds
@@ -109,6 +116,19 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: app-release
+        path: build/app/outputs/flutter-apk/app-release.apk
+    
+    - name: Create Release
+      if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+      uses: softprops/action-gh-release@v1
+      with:
+        tag_name: v1.0.${{ github.run_number }}
+        name: Release v1.0.${{ github.run_number }}
+        files: build/app/outputs/flutter-apk/app-release.apk
+        draft: false
+        prerelease: false
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}        name: app-release
         path: build/app/outputs/flutter-apk/app-release.apk
     
     - name: Create Release
