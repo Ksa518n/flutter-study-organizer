@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.study_organizer.study_organizer">
 
@@ -14,6 +14,7 @@
 
     <application
         android:label="Study Organizer"
+        android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:usesCleartextTraffic="false"
@@ -27,6 +28,11 @@
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
             android:hardwareAccelerated="true"
             android:windowSoftInputMode="adjustResize">
+
+            <!-- Flutter Embedding V2 -->
+            <meta-data
+                android:name="flutterEmbedding"
+                android:value="2" />
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
