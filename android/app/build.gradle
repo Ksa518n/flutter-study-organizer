@@ -21,13 +21,20 @@ if (flutterVersionName == null) {
     flutterVersionName = '1.0'
 }
 
+// Override SDK versions
+ext {
+    compileSdkVersion = 35
+    targetSdkVersion = 35
+    minSdkVersion = 21
+}
+
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
     namespace "com.study_organizer.study_organizer"
-    compileSdkVersion flutter.compileSdkVersion
+    compileSdkVersion project.ext.compileSdkVersion
     ndkVersion flutter.ndkVersion
 
     compileOptions {
@@ -45,8 +52,8 @@ android {
 
     defaultConfig {
         applicationId "com.study_organizer.study_organizer"
-        minSdkVersion flutter.minSdkVersion
-        targetSdkVersion flutter.targetSdkVersion
+        minSdkVersion project.ext.minSdkVersion
+        targetSdkVersion project.ext.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }
