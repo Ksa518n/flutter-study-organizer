@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Study Organizer</string>
+    <string name="app_description">منصة شاملة لتنظيم الدراسة وإدارة المهام</string>
+    
+    <!-- Common Strings -->
+    <string name="ok">حسناً</string>
+    <string name="cancel">إلغاء</string>
+    <string name="save">حفظ</string>
+    <string name="delete">حذف</string>
+    <string name="edit">تعديل</string>
+    <string name="add">إضافة</string>
+    <string name="close">إغلاق</string>
+    <string name="loading">جاري التحميل...</string>
+    <string name="error">خطأ</string>
+    <string name="success">نجح</string>
+    <string name="warning">تحذير</string>
+    
+    <!-- Authentication -->
+    <string name="login">تسجيل الدخول</string>
+    <string name="register">التسجيل</string>
+    <string name="logout">تسجيل الخروج</string>
+    <string name="email">البريد الإلكتروني</string>
+    <string name="password">كلمة المرور</string>
+    <string name="forgot_password">هل نسيت كلمة المرور؟</string>
+    <string name="remember_me">تذكرني</string>
+    
+    <!-- App Features -->
+    <string name="home">الرئيسية</string>
+    <string name="subjects">المواد</string>
+    <string name="tasks">المهام</string>
+    <string name="notes">الملاحظات</string>
+    <string name="files">الملفات</string>
+    <string name="statistics">الإحصائيات</string>
+    <string name="settings">الإعدادات</string>
+    <string name="support">الدعم الفني</string>
+</resources>
