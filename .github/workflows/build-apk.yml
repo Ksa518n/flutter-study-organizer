@@ -27,6 +27,11 @@ jobs:
         flutter-version: '3.24.5'
         channel: 'stable'
     
+    - name: Fix Gradle Version
+      run: |
+        # تحديث Gradle إلى 8.3
+        sed -i 's/gradle-7.6.1-all.zip/gradle-8.3-all.zip/g' android/gradle/wrapper/gradle-wrapper.properties
+    
     - name: Fix Gradle Settings
       run: |
         # إصلاح settings.gradle
