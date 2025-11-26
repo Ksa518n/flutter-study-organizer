@@ -29,38 +29,26 @@ jobs:
     
     - name: Fix Code Issues
       run: |
-        # إصلاح PinCodeAnimationType
-        sed -i 's/PinCodeAnimationType/AnimationType/g' lib/screens/auth/otp_verification_screen.dart
-        
-        # إصلاح Icons.file_outlined
-        sed -i 's/Icons.file_outlined/Icons.description_outlined/g' lib/screens/home/home_screen.dart
-        
-        # تحديث pin_code_fields
-        sed -i 's/pin_code_fields: 7.4.0/pin_code_fields: ^8.0.1/g' pubspec.yaml
-        sed -i 's/pin_code_fields: ^7.4.0/pin_code_fields: ^8.0.1/g' pubspec.yaml
+        sed -i 's/PinCodeAnimationType/AnimationType/g' lib/screens/auth/otp_verification_screen.dart || true
+        sed -i 's/Icons.file_outlined/Icons.description_outlined/g' lib/screens/home/home_screen.dart || true
+        sed -i 's/pin_code_fields: 7.4.0/pin_code_fields: ^8.0.1/g' pubspec.yaml || true
+        sed -i 's/pin_code_fields: ^7.4.0/pin_code_fields: ^8.0.1/g' pubspec.yaml || true
     
     - name: Fix Android SDK Version
       run: |
-        # إضافة override للـ SDK versions
-        sed -i '/def flutterVersionName/a\\next {\n    compileSdkVersion = 35\n    targetSdkVersion = 35\n    minSdkVersion = 21\n}' android/app/build.gradle
-        
-        # تحديث android block لاستخدام ext
-        sed -i 's/compileSdkVersion flutter.compileSdkVersion/compileSdkVersion project.ext.compileSdkVersion/g' android/app/build.gradle
-        sed -i 's/minSdkVersion flutter.minSdkVersion/minSdkVersion project.ext.minSdkVersion/g' android/app/build.gradle
-        sed -i 's/targetSdkVersion flutter.targetSdkVersion/targetSdkVersion project.ext.targetSdkVersion/g' android/app/build.gradle
-        
-        # تحديث flutter_local_notifications
-        sed -i 's/flutter_local_notifications: 16.3.3/flutter_local_notifications: ^17.0.0/g' pubspec.yaml
-        sed -i 's/flutter_local_notifications: ^16.3.3/flutter_local_notifications: ^17.0.0/g' pubspec.yaml
+        sed -i '/def flutterVersionName/a\\next {\n    compileSdkVersion = 35\n    targetSdkVersion = 35\n    minSdkVersion = 21\n}' android/app/build.gradle || true
+        sed -i 's/compileSdkVersion flutter.compileSdkVersion/compileSdkVersion project.ext.compileSdkVersion/g' android/app/build.gradle || true
+        sed -i 's/minSdkVersion flutter.minSdkVersion/minSdkVersion project.ext.minSdkVersion/g' android/app/build.gradle || true
+        sed -i 's/targetSdkVersion flutter.targetSdkVersion/targetSdkVersion project.ext.targetSdkVersion/g' android/app/build.gradle || true
+        sed -i 's/flutter_local_notifications: 16.3.3/flutter_local_notifications: ^17.0.0/g' pubspec.yaml || true
+        sed -i 's/flutter_local_notifications: ^16.3.3/flutter_local_notifications: ^17.0.0/g' pubspec.yaml || true
     
     - name: Fix Gradle Version
       run: |
-        # تحديث Gradle إلى 8.3
-        sed -i 's/gradle-7.6.1-all.zip/gradle-8.3-all.zip/g' android/gradle/wrapper/gradle-wrapper.properties
+        sed -i 's/gradle-7.6.1-all.zip/gradle-8.3-all.zip/g' android/gradle/wrapper/gradle-wrapper.properties || true
     
     - name: Fix Gradle Settings
       run: |
-        # إصلاح settings.gradle
         cat > android/settings.gradle << 'EOF'
         pluginManagement {
             def flutterSdkPath = {
@@ -92,16 +80,13 @@ jobs:
     
     - name: Fix Android Embedding
       run: |
-        # تحديث AndroidManifest.xml لاستخدام Embedding V2
-        sed -i 's/io.flutter.app.FlutterApplication/${applicationName}/g' android/app/src/main/AndroidManifest.xml
-        
-        # التأكد من وجود meta-data للـ flutterEmbedding
+        sed -i 's/io.flutter.app.FlutterApplication/${applicationName}/g' android/app/src/main/AndroidManifest.xml || true
         if ! grep -q "flutterEmbedding" android/app/src/main/AndroidManifest.xml; then
-          sed -i '/<activity/a\            <meta-data\n                android:name="flutterEmbedding"\n                android:value="2" />' android/app/src/main/AndroidManifest.xml
+          sed -i '/<activity/a\            <meta-data\n                android:name="flutterEmbedding"\n                android:value="2" />' android/app/src/main/AndroidManifest.xml || true
         fi
     
     - name: Fix dependencies
-      run: flutter pub upgrade syncfusion_flutter_pdfviewer
+      run: flutter pub upgrade syncfusion_flutter_pdfviewer || true
     
     - name: Install dependencies
       run: flutter pub get
@@ -124,7 +109,5 @@ jobs:
         files: build/app/outputs/flutter-apk/app-release.apk
         draft: false
         prerelease: false
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}        prerelease: false
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
