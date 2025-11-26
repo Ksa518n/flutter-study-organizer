@@ -1,17 +1,10 @@
-name: Build APK
+name: Build Flutter APK
 
 on:
   push:
-    branches:
-      - master
-      - main
-      - release/**
-    tags:
-      - 'v*'
+    branches: [ main, master ]
   pull_request:
-    branches:
-      - master
-      - main
+    branches: [ main, master ]
   workflow_dispatch:
 
 jobs:
@@ -19,73 +12,41 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      
-      - name: Setup Java
-        uses: actions/setup-java@v4  # تم التحديث من v3 إلى v4
-        with:
-          distribution: 'temurin'
-          java-version: '11'
-          cache: gradle
-      
-      - name: Setup Flutter
-        uses: subosito/flutter-action@v2
-        with:
-          flutter-version: '3.13.0'
-          cache: true
-          cache-key: flutter-${{ hashFiles('**/pubspec.lock') }}
-      
-      - name: Get dependencies
-        run: flutter pub get
-      
-      - name: Analyze code
-        run: flutter analyze
-        continue-on-error: true
-      
-      - name: Run tests
-        run: flutter test
-        continue-on-error: true
-      
-      - name: Build APK (Release)
-        run: flutter build apk --release
-      
-      - name: Build App Bundle
-        run: flutter build appbundle --release
-        continue-on-error: true
-      
-      - name: Build APK (Split per ABI)
-        run: flutter build apk --split-per-abi --release
-        continue-on-error: true
-      
-      - name: Upload APK artifacts
-        uses: actions/upload-artifact@v4  # تم التحديث من v3 إلى v4
-        with:
-          name: apk-artifacts
-          path: |
-            build/app/outputs/flutter-app.apk
-            build/app/outputs/flutter-app-*-release.apk
-          retention-days: 30
-      
-      - name: Upload App Bundle
-        uses: actions/upload-artifact@v4  # تم التحديث من v3 إلى v4
-        with:
-          name: app-bundle
-          path: build/app/outputs/bundle/release/app-release.aab
-          retention-days: 30
-        continue-on-error: true
-      
-      - name: Create Release
-        if: startsWith(github.ref, 'refs/tags/v')
-        uses: softprops/action-gh-release@v1
-        with:
-          files: |
-            build/app/outputs/flutter-app.apk
-            build/app/outputs/flutter-app-*-release.apk
-            build/app/outputs/bundle/release/app-release.aab
-          draft: false
-          prerelease: false
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Checkout code
+      uses: actions/checkout@v3
+    
+    - name: Setup Java
+      uses: actions/setup-java@v3
+      with:
+        distribution: 'zulu'
+        java-version: '17'
+    
+    - name: Setup Flutter
+      uses: subosito/flutter-action@v2
+      with:
+        flutter-version: '3.24.0'
+        channel: 'stable'
+    
+    - name: Install dependencies
+      run: flutter pub get
+    
+    - name: Build APK
+      run: flutter build apk --release
+    
+    - name: Upload APK
+      uses: actions/upload-artifact@v3
+      with:
+        name: app-release
+        path: build/app/outputs/flutter-apk/app-release.apk
+    
+    - name: Create Release
+      if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+      uses: softprops/action-gh-release@v1
+      with:
+        tag_name: v1.0.${{ github.run_number }}
+        name: Release v1.0.${{ github.run_number }}
+        files: build/app/outputs/flutter-apk/app-release.apk
+        draft: false
+        prerelease: false
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
