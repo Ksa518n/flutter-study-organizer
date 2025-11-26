@@ -1,0 +1,16 @@
+<svg width="192" height="192" viewBox="0 0 192 192" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background Circle -->
+  <circle cx="96" cy="96" r="96" fill="#6366F1"/>
+  
+  <!-- Book Icon -->
+  <g transform="translate(48, 48)">
+    <path d="M48 8C48 3.58172 44.4183 0 40 0H16C7.16344 0 0 7.16344 0 16V80C0 88.8366 7.16344 96 16 96H40C44.4183 96 48 92.4183 48 88V8Z" fill="white" opacity="0.9"/>
+    <path d="M48 16V88C48 92.4183 44.4183 96 40 96H48C52.4183 96 56 92.4183 56 88V16C56 11.5817 52.4183 8 48 8H40C44.4183 8 48 11.5817 48 16Z" fill="white"/>
+    
+    <!-- Pages -->
+    <line x1="16" y1="24" x2="40" y2="24" stroke="#6366F1" stroke-width="2" stroke-linecap="round"/>
+    <line x1="16" y1="40" x2="40" y2="40" stroke="#6366F1" stroke-width="2" stroke-linecap="round"/>
+    <line x1="16" y1="56" x2="40" y2="56" stroke="#6366F1" stroke-width="2" stroke-linecap="round"/>
+    <line x1="16" y1="72" x2="32" y2="72" stroke="#6366F1" stroke-width="2" stroke-linecap="round"/>
+  </g>
+</svg>
