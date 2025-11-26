@@ -104,7 +104,7 @@ class _HomeScreenState extends State<HomeScreen> {
               children: [
                 _buildStatCard('المواد', '5', Icons.book_outlined),
                 _buildStatCard('المهام', '12', Icons.task_outlined),
-                _buildStatCard('الملفات', '24', Icons.file_outlined),
+                _buildStatCard('الملفات', '24', Icons.description_outlined),
                 _buildStatCard('الملاحظات', '18', Icons.note_outlined),
               ],
             ),

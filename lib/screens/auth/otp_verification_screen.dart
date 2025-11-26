@@ -123,7 +123,7 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
                 appContext: context,
                 length: 6,
                 obscureText: false,
-                animationType: PinCodeAnimationType.fade,
+                animationType: AnimationType.fade,
                 pinTheme: PinTheme(
                   shape: PinCodeFieldShape.box,
                   borderRadius: BorderRadius.circular(12),
