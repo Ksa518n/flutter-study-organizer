@@ -27,6 +27,16 @@ jobs:
         flutter-version: '3.24.5'
         channel: 'stable'
     
+    - name: Fix Android Embedding
+      run: |
+        # تحديث AndroidManifest.xml لاستخدام Embedding V2
+        sed -i 's/io.flutter.app.FlutterApplication/${applicationName}/g' android/app/src/main/AndroidManifest.xml
+        
+        # التأكد من وجود meta-data للـ flutterEmbedding
+        if ! grep -q "flutterEmbedding" android/app/src/main/AndroidManifest.xml; then
+          sed -i '/<activity/a\            <meta-data\n                android:name="flutterEmbedding"\n                android:value="2" />' android/app/src/main/AndroidManifest.xml
+        fi
+    
     - name: Fix dependencies
       run: flutter pub upgrade syncfusion_flutter_pdfviewer
     
