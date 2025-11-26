@@ -88,6 +88,17 @@ jobs:
     - name: Fix dependencies
       run: flutter pub upgrade syncfusion_flutter_pdfviewer || true
     
+    - name: Create Missing Asset Directories
+      run: |
+        mkdir -p assets/images/backgrounds
+        mkdir -p assets/images/illustrations
+        mkdir -p assets/images/placeholders
+        mkdir -p assets/fonts
+        mkdir -p assets/animations
+        touch assets/images/.gitkeep
+        touch assets/fonts/.gitkeep
+        touch assets/animations/.gitkeep
+    
     - name: Install dependencies
       run: flutter pub get
     
