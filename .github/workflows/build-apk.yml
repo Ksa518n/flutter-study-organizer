@@ -81,6 +81,28 @@ jobs:
     - name: Fix dependencies
       run: flutter pub upgrade syncfusion_flutter_pdfviewer || true
     
+    - name: Fix App Icons
+      run: |
+        # إزالة المرجع للأيقونة المستديرة من AndroidManifest
+        sed -i '/android:roundIcon/d' android/app/src/main/AndroidManifest.xml || true
+        
+        # إنشاء أيقونة افتراضية إذا لم تكن موجودة
+        if [ ! -f "android/app/src/main/res/mipmap-hdpi/ic_launcher.png" ]; then
+          # إنشاء المجلدات
+          mkdir -p android/app/src/main/res/mipmap-hdpi
+          mkdir -p android/app/src/main/res/mipmap-mdpi
+          mkdir -p android/app/src/main/res/mipmap-xhdpi
+          mkdir -p android/app/src/main/res/mipmap-xxhdpi
+          mkdir -p android/app/src/main/res/mipmap-xxxhdpi
+          
+          # إنشاء أيقونة بسيطة باستخدام ImageMagick
+          convert -size 192x192 xc:#6366F1 -gravity center -pointsize 80 -fill white -annotate +0+0 "SA" android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png
+          convert -size 144x144 xc:#6366F1 -gravity center -pointsize 60 -fill white -annotate +0+0 "SA" android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png
+          convert -size 96x96 xc:#6366F1 -gravity center -pointsize 40 -fill white -annotate +0+0 "SA" android/app/src/main/res/mipmap-xhdpi/ic_launcher.png
+          convert -size 72x72 xc:#6366F1 -gravity center -pointsize 30 -fill white -annotate +0+0 "SA" android/app/src/main/res/mipmap-hdpi/ic_launcher.png
+          convert -size 48x48 xc:#6366F1 -gravity center -pointsize 20 -fill white -annotate +0+0 "SA" android/app/src/main/res/mipmap-mdpi/ic_launcher.png
+        fi
+    
     - name: Create Missing Asset Directories
       run: |
         mkdir -p assets/images/backgrounds
