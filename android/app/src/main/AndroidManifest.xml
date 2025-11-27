@@ -1,4 +1,4 @@
-?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.study_organizer.study_organizer">
 
@@ -29,7 +29,6 @@
             android:hardwareAccelerated="true"
             android:windowSoftInputMode="adjustResize">
 
-            <!-- Flutter Embedding V2 -->
             <meta-data
                 android:name="flutterEmbedding"
                 android:value="2" />
@@ -40,12 +39,6 @@
             </intent-filter>
         </activity>
 
-        <!-- Flutter notification channel -->
-        <service
-            android:name="io.flutter.embedding.engine.FlutterEngineCache"
-            android:exported="false" />
-
-        <!-- Google Play Services -->
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
