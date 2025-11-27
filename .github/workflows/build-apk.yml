@@ -88,13 +88,6 @@ jobs:
     - name: Fix dependencies
       run: flutter pub upgrade syncfusion_flutter_pdfviewer || true
     
-    - name: Fix pubspec.yaml fonts
-      run: |
-        # إزالة تعريف الخطوط المحلية من pubspec.yaml
-        sed -i '/fonts:/,/Poppins-Regular.ttf/d' pubspec.yaml || true
-        # إزالة تعريف assets المفقودة
-        sed -i '/assets:/,/assets\/animations\//d' pubspec.yaml || true
-    
     - name: Create Missing Asset Directories
       run: |
         mkdir -p assets/images/backgrounds
